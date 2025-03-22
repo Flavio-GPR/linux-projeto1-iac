@@ -10,11 +10,11 @@ Em seguida, será realizado o upload do arquivo de script no GitHub para futuras
 
 Sendo assim, toda nova máquina virtual que for iniciada já estará pronta para uso quando o script for executado.
 
-O primeiro arquivo contém op comandos listados em sequência, para a criação da estrutura de diretórios, o permissionamento dos diretórios criados, criação dos usuários, grupos e a inclusão dos usuários nos seus respectivos grupos.
+O primeiro script [cria_estrutura_srv.sh](https://github.com/Flavio-GPR/linux-projeto1-iac/blob/main/scripts/cria_estrutura_srv.sh) contém os comandos listados em sequência, para a criação da estrutura de diretórios, o permissionamento dos diretórios criados, criação dos usuários, grupos e a inclusão dos usuários nos seus respectivos grupos.
 
 Esse script foi totalmente desenvolvido por mim, a partir do conteúdo adquirido no treinamento.
 
-O segundo script foi criado com o auxílio da IA Generativa Copilot, da Microsoft.
+O segundo script [cria_estrutura_srv_otimizado](https://github.com/Flavio-GPR/linux-projeto1-iac/blob/main/scripts/cria_estrutura_srv_otimizado) foi criado com o auxílio da IA Generativa Copilot, da Microsoft.
 
 Utilizei a ferramenta de IA no meu script, com o propósito de otimizar o código com loops e testes condicionais.
 
