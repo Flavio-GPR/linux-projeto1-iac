@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# Função para criar grupos
+create_group() {
+    local group="$1"
+    if ! getent group "$group" &>/dev/null; then
+        groupadd "$group"
+        echo "Grupo '$group' criado."
+    else
+        echo "Grupo '$group' já existe."
+    fi
+}
+
+# Função para criar diretórios com permissões e grupos
+create_directory() {
+    local dir="$1"
+    local group="$2"
+    local permissions="$3"
+    if [ ! -d "$dir" ]; then
+        mkdir "$dir"
+        echo "Diretório '$dir' criado."
+    else
+        echo "Diretório '$dir' já existe."
+    fi
+    chown root:"$group" "$dir"
+    chmod "$permissions" "$dir"
+    echo "Permissões definidas para '$dir' (Grupo: $group, Permissões: $permissions)."
+}
+
+# Função para criar usuários e atribuir ao grupo
+create_user() {
+    local user="$1"
+    local group="$2"
+    local password="$3"
+    if ! id "$user" &>/dev/null; then
+        useradd -m -s /bin/bash "$user"
+        echo "$user:$password" | chpasswd
+        passwd "$user" -e
+        echo "Usuário '$user' criado."
+    else
+        echo "Usuário '$user' já existe."
+    fi
+    usermod -aG "$group" "$user"
+    echo "Usuário '$user' adicionado ao grupo '$group'."
+}
+
+# Criando grupos
+echo "Criando grupos..."
+create_group "GRP_ADM"
+create_group "GRP_VEN"
+create_group "GRP_SEC"
+
+# Criando diretórios com permissões
+echo "Criando diretórios, atribuindo grupos e permissões..."
+create_directory "/disk2/publico" "" 777
+create_directory "/disk2/adm" "GRP_ADM" 770
+create_directory "/disk2/ven" "GRP_VEN" 770
+create_directory "/disk2/sec" "GRP_SEC" 770
+
+# Criando usuários e adicionando aos grupos
+echo "Criando usuários e adicionando nos respectivos grupos..."
+create_user "carlos" "GRP_ADM" "Senha123"
+create_user "maria" "GRP_ADM" "Senha123"
+create_user "joao" "GRP_ADM" "Senha123"
+
+create_user "debora" "GRP_VEN" "Senha123"
+create_user "sebastiana" "GRP_VEN" "Senha123"
+create_user "roberto" "GRP_VEN" "Senha123"
+
+create_user "josefina" "GRP_SEC" "Senha123"
+create_user "amanda" "GRP_SEC" "Senha123"
+create_user "rogerio" "GRP_SEC" "Senha123"
